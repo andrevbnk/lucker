@@ -53,11 +53,20 @@
                                     <button class="amount-number" @click="typeBet('/2')">/2</button>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                         <div class="col-4 position-relative">
                             <h2 class="text-center">{{ parseFloat(diceResult).toFixed(2) }}</h2>
                             <div class="vozTitle text-center">Возможный выигрыш</div>
+                            {{ chance }}
+
+                            <SliderRange 
+                                :value="chance" 
+                                :min="0" 
+                                :max="100"
+                                @update:value="chance = $event"
+                            />
                         </div>
+
                         <div class="col-4">
                             <div class="controlPanel">
                                 <label>Шанс игры</label>
@@ -129,7 +138,12 @@
 </template>
 
 <script>
+import SliderRange from '../components/SliderRange.vue';
+
 export default {
+    components: {
+        SliderRange
+    },
     name: "Dice",
     data() {
         return {

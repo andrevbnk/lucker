@@ -14,9 +14,9 @@
 			</div>
 		</div>
 
-		<div>Min: {{ min }}</div>
+		<!-- <div>Min: {{ min }}</div>
 		<div>Chance: {{ value }}</div>
-		<div>Max: {{ max }}</div>
+		<div>Max: {{ max }}</div> -->
 
 		<input type="range" v-model="internalValue" :min="min" :max="max">
     </div>
@@ -122,30 +122,30 @@ export default {
 <style scoped>
 .slider-container {
 	.slider-track {
-		height: 20px;
+		height: 8px;
 		width: 100%;
-		border-radius: 10px;
+		border-radius: 15px;
 		position: relative;
 		cursor: pointer;
-		background: #db514e;
+		background: #16d95e;
 		margin-top: 30px;
 	}
-	
 
 	input[type="range"] {display: none;}
 
 	.slider-progress {
-		background: #7eb23b;
-		border-radius: 10px;
+		background: #ef4444;
+		border-radius: 15px;
 		height: 100%;
 		transition: none !important;
 	}
 
 	.slider-thumb {
-		top: -5px;
-		width: 30px;
-		height: 30px;
-		background: #3b74e6;
+		top: -6px;
+		width: 20px;
+		height: 20px;
+		background: #0c0b0b;
+        border: 2px solid #16d95e;
 		border-radius: 50%;
 		cursor: pointer;
 		position: absolute;

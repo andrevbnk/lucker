@@ -25,10 +25,10 @@
 			</div>
 		</div>
 
-		<div>Min: {{ min }}</div>
+		<!-- <div>Min: {{ min }}</div>
 		<div>Chance: {{ value }}</div>
 		<div>Max: {{ max }}</div>
-        <div>Rand: {{ random }}</div>
+        <div>Rand: {{ random }}</div> -->
 
 		<input type="range" v-model="internalValue" :min="min" :max="max">
     </div>

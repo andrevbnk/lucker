@@ -175,7 +175,8 @@ class DiceController extends Controller
         return [
             'status' => $isWin,
             'text' => $text,
-            'balance' => $this->user->balance
+            'balance' => $this->user->balance,
+            'random' => $random
         ];
     }
 }

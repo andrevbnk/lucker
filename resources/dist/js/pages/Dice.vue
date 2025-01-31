@@ -57,12 +57,12 @@
                         <div class="col-4 position-relative">
                             <h2 class="text-center">{{ parseFloat(diceResult).toFixed(2) }}</h2>
                             <div class="vozTitle text-center">Возможный выигрыш</div>
-                            {{ chance }}
 
                             <SliderRange 
                                 :value="chance" 
                                 :min="0" 
-                                :max="100"
+                                :max="999999"
+                                :random="random"
                                 @update:value="chance = $event"
                             />
                         </div>
@@ -147,6 +147,7 @@ export default {
     name: "Dice",
     data() {
         return {
+            random: 0,
             chance: "80.00",
             bet: "1.00",
             diceResult: 0,
@@ -219,6 +220,7 @@ export default {
                 const {data} = response
 
                 if(typeof data.error == 'undefined') {
+                    this.random = data.random;
                     this.$root.user.balance = data.balance;
                     this.noty = {
                         btn: type,

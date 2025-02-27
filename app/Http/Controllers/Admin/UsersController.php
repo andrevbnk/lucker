@@ -26,7 +26,7 @@ class UsersController extends Controller
         return view('admin.users.index');
     }
 
-    public function edit($id)
+    public function edit($id, Request $request)
     {
         $user = User::query()->find($id);
         if (!$user) {
@@ -36,14 +36,47 @@ class UsersController extends Controller
 
         $cashe_hist_user = \Cache::get('user.'.$id.'.historyBalance') ?? '[]';
         $cashe_hist_user = json_decode($cashe_hist_user);
+
         if(count($cashe_hist_user) > 0){
             $cashe_hist_user = array_reverse($cashe_hist_user);
         }
-            
 
         $logs = $cashe_hist_user;
+
         return view('admin.users.edit', compact('user', 'refs', 'mults', 'logs'));
     }
+
+    public function getUserLogs($id, Request $request)
+    {
+        $cashe_hist_user = \Cache::get('user.'.$id.'.historyBalance') ?? '[]';
+        $cashe_hist_user = json_decode($cashe_hist_user);
+
+        if(count($cashe_hist_user) > 0){
+            $cashe_hist_user = array_reverse($cashe_hist_user);
+        }
+
+        $arr = [
+            [
+                'date' => '30.01.25 в 18:25:18',
+                'user_id' => 14,
+                'type' => 'Ставка в Dice',
+                'balance_before' => 4212.76,
+                'balance_after' => 4211.76,
+                'date' => "31.01.2025 16:51:55",
+            ],
+            [
+                'date' => '30.01.25 в 18:25:28',
+                'user_id' => 15,
+                'type' => 'Ставка в Dice',
+                'balance_before' => 4212.76,
+                'balance_after' => 4211.76,
+                'date' => "31.01.2025 16:51:55",
+            ]
+        ];
+
+        return response()->json($arr);
+    }
+
 
     public function editPost($id, Request $r)
     {

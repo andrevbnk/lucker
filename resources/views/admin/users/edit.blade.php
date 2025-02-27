@@ -249,8 +249,21 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="tab-pane" id="userLogs" role="tabpanel">
                         <div class="kt-section">
+                            
+                            <div id="date-filter-form">
+                                <div class="form-group">
+                                    <label for="from_date">От:</label>
+                                    <input type="date" name="from_date" id="from_date" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="to_date">До:</label>
+                                    <input type="date" name="to_date" id="to_date" class="form-control">
+                                </div>
+                            </div>
+
                             <table class="table table-striped- table-bordered table-hover table-checkable" id="logs">
                                 <thead>
                                     <tr>
@@ -309,8 +322,49 @@
     }
 </style>
 <script>
-    $("#logs").DataTable();
+$(document).ready(function() {
+    var table = $('#logs').DataTable();
+
+    $('#from_date, #to_date').on('change', function() {
+        let fromDate = $('#from_date').val();
+        let toDate = $('#to_date').val();
+
+        $.fn.dataTable.ext.search = [];
+
+        $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+            let date = data[0]; 
+            date = parseDate(date);
+
+            let valid = true;
+
+            if (fromDate && new Date(fromDate) > date) {
+                valid = false;
+            }
+
+            if (toDate && new Date(toDate) < date) {
+                valid = false;
+            }
+
+            return valid;
+        });
+
+        table.draw();
+    });
+
+    function parseDate(dateText) {
+        let dateParts = dateText.split(' в ')[0].split('.');
+        let day = dateParts[0];
+        let month = dateParts[1] - 1;
+        let year = '20' + dateParts[2];
+
+        let time = dateText.split(' в ')[1];
+        let [hours, minutes, seconds] = time.split(':');
+
+        return new Date(year, month, day, hours, minutes, seconds);
+    }
+});
 </script>
+
 <script>
     function getRegDate(id) {
         $('#vkDate').html('...');

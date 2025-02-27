@@ -124,6 +124,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
         Route::group(['prefix' => 'users'], function () {
             Route::get('/edit/{id}', 'UsersController@edit')->name('admin.users.edit');
             Route::post('/edit/{id}', 'UsersController@editPost');
+
+            Route::get('/admin/users/{id}/logs', 'UsersController@getUserLogs');
+
             Route::get('/create/{type}/{id}', 'UsersController@createFake')->name('admin.users.createFake');
             Route::post('/create/{type}/{id}', 'UsersController@addFake');
             Route::get('/delete/{id}', 'UsersController@delete')->name('admin.users.delete');
